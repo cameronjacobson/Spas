@@ -76,7 +76,7 @@ class ApplicationServer
 		$method = self::$methods[$r->getCommand()];
 		$body = $in->read($in->length);
 
-		$parameters = $this->getParameterInfo($method, $uri, $body, $contentType[1]);
+		$parameters = $this->getParameterInfo($method, $uri, $body, $contentType);
 		$cookies = $this->getCookieInfo($r);
 		$files = array();
 		$server = $this->getServerInfo();
@@ -123,7 +123,7 @@ class ApplicationServer
 			case 'CONNECT':
 			case 'PATCH':
 				if(!empty($body)){
-					switch(strtolower($contentType)){
+					switch(strtolower($contentType[1])){
 						case 'json':
 							$json = json_decode($body, true);
 							if(is_array($json)){

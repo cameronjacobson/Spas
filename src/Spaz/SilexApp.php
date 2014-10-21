@@ -9,8 +9,6 @@ use \Spaz\ApplicationInterface;
 
 class SilexApp extends Application implements ApplicationInterface
 {
-	private $base;
-
 	public function __construct(array $values = array()){
 		parent::__construct($values);
 	}
