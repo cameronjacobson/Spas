@@ -76,7 +76,7 @@ class ApplicationServer
 		$method = self::$methods[$r->getCommand()];
 		$body = $in->read($in->length);
 
-		$parameters = $this->getParameterInfo($method, $uri, $body, $contentType);
+		$parameters = $this->getParameterInfo($method, $uri, $body, $contentType[1]);
 		$cookies = $this->getCookieInfo($r);
 		$files = array();
 		$server = $this->getServerInfo();
