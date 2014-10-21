@@ -1,0 +1,15 @@
+{
+    "name":"spaz/spaz",
+    "require": {
+        "php": ">=5.4.0",
+        "ext-event": "*"
+    },
+    "require": {
+        "silex/silex": "1.2.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Spaz": "src/"
+        }
+    }
+}
