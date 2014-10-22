@@ -78,9 +78,10 @@ class ApplicationServer
 
 		$parameters = $this->getParameterInfo($method, $uri, $body, $contentType);
 		$cookies = $this->getCookieInfo($r);
-
-		$files = array();
 		$server = $this->getServerInfo();
+
+		//TODO: How do multipart file POSTs come through?
+		$files = array();
 
 		// PROCESSING
 		$request = Request::create($uri, $method, $parameters, $cookies, $files, $server, $body);
@@ -95,9 +96,10 @@ class ApplicationServer
 		}
 		$code = $response->getStatusCode();
 
+		// Which methods should allow body in response?
+		//TODO:  Confirm Symfony HTTP Foundation classes are compliant
 		$out = new EventBuffer();
 		$out->add($response->getContent());
-
 
 		// SENDING
 		$r->sendReply($code, Response::$statusTexts[$code], $out);
@@ -110,18 +112,23 @@ class ApplicationServer
 		if(!empty($components['query'])){
 			parse_str($components['query'], $query);
 		}
+
+		// Which methods should allow body in request?
+		//  http://stackoverflow.com/a/299696 (2008)
+		//TODO: confirm same for newer HTTP specs
+		//      OR confirm HttpEvent is compliant
 		switch($method){
-			case 'GET':
+			case 'TRACE':
 				return $query;
 				break;
-			case 'POST':
-			case 'HEAD':
-			case 'PUT':
-			case 'DELETE':
-			case 'OPTIONS':
-			case 'TRACE':
 			case 'CONNECT':
+			case 'DELETE':
+			case 'GET':
+			case 'HEAD':
+			case 'OPTIONS':
 			case 'PATCH':
+			case 'POST':
+			case 'PUT':
 				if(!empty($body)){
 					switch(strtolower($contentType[1])){
 						case 'json':
@@ -130,13 +137,20 @@ class ApplicationServer
 								$parameters = $json;
 							}
 							break;
+						//TODO: What about multipart?
+						case 'x-www-form-urlencoded':
+						case 'form-data':
 						default:
 							parse_str($body, $parameters);
 							break;
 					}
 				}
 				break;
+			default:
+				// Invalid HTTP Method
+				break;
 		}
+
 		return array_replace($query, $parameters);
 	}
 
