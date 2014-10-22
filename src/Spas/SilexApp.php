@@ -1,11 +1,11 @@
 <?php
 
-namespace Spaz;
+namespace Spas;
 
 use \Silex\Application;
 use \Symfony\Component\HttpFoundation\Request;
 
-use \Spaz\ApplicationInterface;
+use \Spas\ApplicationInterface;
 
 class SilexApp extends Application implements ApplicationInterface
 {

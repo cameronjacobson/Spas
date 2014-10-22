@@ -1,5 +1,5 @@
 {
-    "name":"spaz/spaz",
+    "name":"spas/spas",
     "require": {
         "php": ">=5.4.0",
         "ext-event": "*"
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Spaz": "src/"
+            "Spas": "src/"
         }
     }
 }

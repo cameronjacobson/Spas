@@ -12,8 +12,8 @@
          bootstrap="tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="Spaz Test Suite">
-            <directory>./tests/Spaz/</directory>
+        <testsuite name="Spas Test Suite">
+            <directory>./tests/Spas/</directory>
         </testsuite>
     </testsuites>
 

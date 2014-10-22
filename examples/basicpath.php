@@ -2,8 +2,8 @@
 
 require_once(dirname(__DIR__).'/vendor/autoload.php');
 
-use Spaz\ApplicationServer;
-use Spaz\SilexApp;
+use Spas\ApplicationServer;
+use Spas\SilexApp;
 
 $app = new SilexApp();
 

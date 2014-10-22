@@ -1,6 +1,6 @@
-# Spaz
+# Spas
 
-Simple PHP Application Serverz
+Simple PHP Application Servers
 
 ## see examples in:
 

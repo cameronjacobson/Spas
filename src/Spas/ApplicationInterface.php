@@ -1,6 +1,6 @@
 <?php
 
-namespace Spaz;
+namespace Spas;
 
 use \Symfony\Component\HttpFoundation\Request;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Spaz;
+namespace Spas;
 
-use \Spaz\SilexApp;
-use \Spaz\ApplicationInterface;
+use \Spas\SilexApp;
+use \Spas\ApplicationInterface;
 use \EventBase;
 use \EventBuffer;
 use \EventUtil;
@@ -36,7 +36,7 @@ class ApplicationServer
 	);
 
 	private static $serverDefaults = array(
-			'HTTP_USER_AGENT'      => 'Spaz/0.1',
+			'HTTP_USER_AGENT'      => 'Spas/0.1',
 			'HTTP_ACCEPT'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 			'HTTP_ACCEPT_LANGUAGE' => 'en-us,en;q=0.5',
 			'HTTP_ACCEPT_CHARSET'  => 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
@@ -78,13 +78,13 @@ class ApplicationServer
 
 		$parameters = $this->getParameterInfo($method, $uri, $body, $contentType);
 		$cookies = $this->getCookieInfo($r);
+
 		$files = array();
 		$server = $this->getServerInfo();
 
 		// PROCESSING
 		$request = Request::create($uri, $method, $parameters, $cookies, $files, $server, $body);
 		$response = $this->app->run($request);
-
 
 		// OUTBOUND RESPONSE
 		$headers = $response->headers->all();
@@ -160,7 +160,7 @@ class ApplicationServer
 		$server = array(
 			'REQUEST_TIME'         => time(),
 		);
-        return array_replace(self::$serverDefaults, $server);
+		return array_replace(self::$serverDefaults, $server);
 	}
 
 	public function run(){
