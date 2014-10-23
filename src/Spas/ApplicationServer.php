@@ -36,17 +36,21 @@ class ApplicationServer
 	);
 
 	private static $serverDefaults = array(
-			'HTTP_USER_AGENT'      => 'Spas/0.1',
-			'HTTP_ACCEPT'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-			'HTTP_ACCEPT_LANGUAGE' => 'en-us,en;q=0.5',
-			'HTTP_ACCEPT_CHARSET'  => 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
-			'REMOTE_ADDR'          => '127.0.0.1',
-			'SCRIPT_NAME'          => '',
-			'SCRIPT_FILENAME'      => '',
-			'SERVER_PROTOCOL'      => 'HTTP/1.1',
+		'HTTP_USER_AGENT'      => 'Spas/0.1',
+		'HTTP_ACCEPT'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+		'HTTP_ACCEPT_LANGUAGE' => 'en-us,en;q=0.5',
+		'HTTP_ACCEPT_CHARSET'  => 'ISO-8859-1,utf-8;q=0.7,*;q=0.7',
+		'REMOTE_ADDR'          => '127.0.0.1',
+		'SCRIPT_NAME'          => '',
+		'SCRIPT_FILENAME'      => '',
+		'SERVER_PROTOCOL'      => 'HTTP/1.1',
 	);
 
 	public function __construct($addr, $port, ApplicationInterface $app){
+		if(!function_exists('openssl_random_pseudo_bytes')){
+			die(PHP_EOL.'ERROR: System requires openssl_random_pseudo_bytes to generate session ids'.PHP_EOL);
+		}
+
 		$this->app = $app;
 		$this->base = new EventBase();
 		$this->http = new EventHttp($this->base);
@@ -193,4 +197,5 @@ class ApplicationServer
 	private function E($val){
 		error_log(var_export(json_encode($val,JSON_PRETTY_PRINT),true));
 	}
+
 }
