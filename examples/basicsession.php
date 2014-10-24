@@ -58,9 +58,6 @@ RESPONSE;
 });
 
 $app->get('/hello', function(Request $request) use($app){
-	for($x=0;$x<10;$x++){
-		sleep(1);
-	}
 	$name = $request->getSession()->get('name');
 	if(empty($name)){
 		return "Sorry. I couldn't find your session name.".PHP_EOL;
