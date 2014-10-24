@@ -39,16 +39,16 @@ class FileSessionHandler implements SessionHandlerInterface
 		return true;
 	}
 
-    public function gc($maxlifetime = 0) {
-        foreach (glob($this->session_dir."/sess_*") as $file) {
-            if (filemtime($file) + $maxlifetime < time() && file_exists($file)) {
+	public function gc($maxlifetime = 0) {
+		foreach (glob($this->session_dir."/sess_*") as $file) {
+			if (filemtime($file) + $maxlifetime < time() && file_exists($file)) {
 				$tmp = explode('/sess_',$file);
 				$tmp = array_splice($tmp,-1);
-                $this->destroy($tmp[0]);
-            }
-        }
-        return true;
-    }
+				$this->destroy($tmp[0]);
+			}
+		}
+		return true;
+	}
 
 	public function open($save_path, $name){
 		return true;

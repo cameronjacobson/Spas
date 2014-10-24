@@ -26,36 +26,36 @@ use \Symfony\Component\HttpKernel\Event\GetResponseEvent;
  */
 class SpasSessionProvider implements ServiceProviderInterface
 {
-    private $app;
+	private $app;
 
-    public function register(Application $app)
-    {
-        $this->app = $app;
+	public function register(Application $app)
+	{
+		$this->app = $app;
 
-        $app['session'] = $app->share(function ($app) {
-            return new Session($app['session.handler']);
-        });
+		$app['session'] = $app->share(function ($app) {
+			return new Session($app['session.handler']);
+		});
 
-        $app['session.handler'] = $app->share(function ($app) {
-            return new FileSessionHandler($app['session.options']);
-        });
+		$app['session.handler'] = $app->share(function ($app) {
+			return new FileSessionHandler($app['session.options']);
+		});
 
-        $app['session.default_locale'] = 'en';
-    }
+		$app['session.default_locale'] = 'en';
+	}
 
-    public function onEarlyKernelRequest(GetResponseEvent $event)
-    {
+	public function onEarlyKernelRequest(GetResponseEvent $event)
+	{
 		$cookies = $event->getRequest()->cookies;
 		$sess = clone $this->app['session'];
-        $event->getRequest()->setSession($sess);
+		$event->getRequest()->setSession($sess);
 		if($session_id = $cookies->get($event->getRequest()->getSession()->getName())){
 			$event->getRequest()->getSession()->setId($session_id);
 		}
 		$event->getRequest()->getSession()->start();
-    }
+	}
 
-    public function boot(Application $app)
-    {
-        $app['dispatcher']->addListener(KernelEvents::REQUEST, array($this, 'onEarlyKernelRequest'), 128);
-    }
+	public function boot(Application $app)
+	{
+		$app['dispatcher']->addListener(KernelEvents::REQUEST, array($this, 'onEarlyKernelRequest'), 128);
+	}
 }

@@ -98,18 +98,18 @@ class Session implements SessionInterface
 	}
 
 	public function invalidate($lifetime = null){
-        $this->clear();
-        return $this->migrate(true, $lifetime);
+		$this->clear();
+		return $this->migrate(true, $lifetime);
 	}
 
 	private function generateSessionId(){
-        $d = unpack('H*', openssl_random_pseudo_bytes (20, $strong));
-        if(empty($strong)){
-            error_log('Warning: Your operating system is NOT using a cryptographically secure algorithm to generate session ids');
-        }
-        $id = base_convert($d[1],16,36);
-        $this->setId($id);
-        return $id;
+		$d = unpack('H*', openssl_random_pseudo_bytes (20, $strong));
+		if(empty($strong)){
+			error_log('Warning: Your operating system is NOT using a cryptographically secure algorithm to generate session ids');
+		}
+		$id = base_convert($d[1],16,36);
+		$this->setId($id);
+		return $id;
 	}
 
 
@@ -117,10 +117,10 @@ class Session implements SessionInterface
 
 
 	public function migrate($destroy = false, $lifetime = null){
-        if ($destroy) {
-            $this->metadataBag->stampNew();
-        }
-        return $this->generateSessionId();
+		if ($destroy) {
+			$this->metadataBag->stampNew();
+		}
+		return $this->generateSessionId();
 	}
 
 	public function registerBag(SessionBagInterface $bag){
@@ -128,26 +128,26 @@ class Session implements SessionInterface
 	}
 
 	public function getBag($name){
-        if (!isset($this->bags[$name])) {
-            throw new \InvalidArgumentException(sprintf('The SessionBagInterface %s is not registered.', $name));
-        }
+		if (!isset($this->bags[$name])) {
+			throw new \InvalidArgumentException(sprintf('The SessionBagInterface %s is not registered.', $name));
+		}
 
-        return $this->bags[$name];
+		return $this->bags[$name];
 	}
 
 	public function getMetadataBag(){
-        if (null === $this->metadataBag){
-            $this->metadataBag = new MetadataBag();
-        }
-        return $this->metadataBag;
+		if (null === $this->metadataBag){
+			$this->metadataBag = new MetadataBag();
+		}
+		return $this->metadataBag;
 	}
 
-    public function setMetadataBag(MetadataBag $metaBag = null){   
-        if (null === $metaBag) {
-            $metaBag = new MetadataBag();
-        }
-        $this->metadataBag = $metaBag;
-    }
+	public function setMetadataBag(MetadataBag $metaBag = null){   
+		if (null === $metaBag) {
+			$metaBag = new MetadataBag();
+		}
+		$this->metadataBag = $metaBag;
+	}
 
 }
 
