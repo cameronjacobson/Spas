@@ -4,11 +4,12 @@ require_once(dirname(__DIR__).'/vendor/autoload.php');
 
 use Spas\ApplicationServer;
 use Spas\SilexApp;
+use Symfony\Component\HttpFoundation\Request;
 
 $app = new SilexApp();
 
-$app->get('/hello', function() use($app) { 
-    return 'Hello '.$app['request']->cookies->get('name');
+$app->get('/hello', function(Request $request) use($app) { 
+    return 'Hello '.$request->cookies->get('name');
 }); 
 
 
