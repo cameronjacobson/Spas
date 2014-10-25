@@ -15,6 +15,7 @@ use \Spas\Session;
 use \Spas\FileSessionHandler;
 
 use \Silex\Application;
+use \Silex\ServiceProviderInterface;
 use \Symfony\Component\HttpKernel\KernelEvents;
 use \Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
