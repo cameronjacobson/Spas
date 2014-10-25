@@ -55,6 +55,9 @@ class ApplicationServer
 		$this->base = new EventBase();
 		$this->http = new EventHttp($this->base);
 		$this->http->setDefaultCallback(array($this,'callback'));
+
+		$this->app['base'] = $this->base;
+
 		$this->port = self::$serverDefaults['SERVER_PORT'] = $port;
 		if(preg_match("|^\d+(\.\d+){3}$|",$addr,$match)){
 			$this->addr = $addr;

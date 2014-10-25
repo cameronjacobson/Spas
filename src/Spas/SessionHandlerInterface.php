@@ -2,9 +2,6 @@
 
 namespace Spas;
 
-use \Symfony\Component\HttpFoundation\Request;
-use \Spas\ApplicationInterface;
-
 interface SessionHandlerInterface
 {
 	public function __construct(array $options);

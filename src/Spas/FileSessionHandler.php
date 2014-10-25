@@ -60,12 +60,12 @@ class FileSessionHandler implements SessionHandlerInterface
 			return array();
 		}
 		$session_data = (string)@file_get_contents($file);
-		$session_data = json_decode($session_data,true);
+		$session_data = unserialize($session_data);
 		return empty($session_data) ? array() : $session_data;
 	}
 
 	public function write($session_id, array $session_data){
-		$session_data = json_encode($session_data);
+		$session_data = serialize($session_data);
 		return file_put_contents($this->session_dir.'/sess_'.$session_id,$session_data);
 	}
 }
