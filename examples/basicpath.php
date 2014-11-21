@@ -8,15 +8,6 @@ use Spas\SilexApp;
 $app = new SilexApp();
 
 $app->get('/hello/{name}', function($name) use($app) { 
-switch($name){
-	case 'blah1000':
-	case 'blah2000':
-	case 'blah3000':
-	case 'blah4000':
-	case 'blah5000':
-		var_dump(memory_get_peak_usage(true));
-		break;
-}
     return 'Hello '.$app->escape($name); 
 }); 
 
