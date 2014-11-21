@@ -7,6 +7,7 @@ use \Spas\ApplicationInterface;
 use \EventBase;
 use \EventBuffer;
 use \EventUtil;
+use \Event;
 use \EventListener;
 use \EventHttp;
 use \EventHttpRequest;
@@ -110,6 +111,8 @@ class ApplicationServer
 
 		// SENDING
 		$r->sendReply($code, Response::$statusTexts[$code], $out);
+		$bev = $r->getBufferEvent();
+		$bev->free();
 	}
 
 	private function getParameterInfo($method, $uri, $body, $contentType){
